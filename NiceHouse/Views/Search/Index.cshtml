@@ -1,0 +1,53 @@
+﻿@model IEnumerable<NiceHouse.Models.Hotel>
+
+@{
+    ViewBag.Title = "Search Hotels";
+}
+
+<h2>Search Hotels</h2>
+
+@using (Html.BeginForm("Index", "Search", FormMethod.Get))
+{
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="location">Location</label>
+            @Html.TextBox("location", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-2">
+            <label for="minPrice">Min Price</label>
+            @Html.TextBox("minPrice", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-2">
+            <label for="maxPrice">Max Price</label>
+            @Html.TextBox("maxPrice", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label for="hotelName">Hotel Name</label>
+            @Html.TextBox("hotelName", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-2">
+            <input type="submit" value="Search" class="btn btn-primary mt-4" />
+        </div>
+    </div>
+}
+
+<div class="row mt-4">
+    @foreach (var hotel in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@hotel.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@hotel.Location</h6>
+                    <p class="card-text">@hotel.Address</p>
+                    @if (hotel.Images.Any())
+                    {
+                        <img src="@hotel.Images.First().ImageUrl" class="card-img-top img-fluid" />
+                    }
+                    <p class="card-text">Price Range: $@hotel.MinRoomPrice - $@hotel.MaxRoomPrice</p>
+                    <a href="@Url.Action("Rooms", "Search", new { hotelId = hotel.Id })" class="btn btn-primary mt-2">View Rooms</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
