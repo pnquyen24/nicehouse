@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace NiceHouse.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240626163016_AddHotelAddressAndRoomBeds")]
-    partial class AddHotelAddressAndRoomBeds
+    [Migration("20240626171048_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
