@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NiceHouse.Models;
+using System.Collections.Generic;
 
 namespace NiceHouse.Controllers
 {
@@ -17,8 +18,9 @@ namespace NiceHouse.Controllers
         public IActionResult Index(string location, decimal? minPrice, decimal? maxPrice, string hotelName)
         {
 
-            // Tìm kiếm khách sạn dựa trên các tiêu chí: địa điểm, giá min/max, tên khách sạn
-            var hotels = _context.Hotels.AsQueryable(); // Tạo query linh động
+            var hotels = _context.Hotels
+                .Include(h => h.Images)
+                .AsQueryable();
 
             if (!string.IsNullOrEmpty(location))
             {
@@ -40,35 +42,52 @@ namespace NiceHouse.Controllers
                 hotels = hotels.Where(h => h.Name.Contains(hotelName));
             }
 
-            //Lấy thông tin giá thấp nhất và giá cao nhất từ bảng RoomType cho từng khách sạn
-            var hotelIds = hotels.Select(h => h.Id).ToList();
-            if (hotelIds.Any())
+            // Lấy thông tin giá thấp nhất và giá cao nhất từ bảng RoomType cho từng khách sạn
+            foreach (var hotel in hotels)
             {
-                var roomTypes = _context.RoomTypes
-                   .Where(rt => hotelIds.Contains(rt.HotelId))
-                   .OrderBy(rt => rt.Price)
-                   .ToList();
+                var roomTypes = _context.RoomTypes.Where(rt => rt.HotelId == hotel.Id).OrderBy(rt => rt.Price).ToList();
 
-                hotels.ToList()?.ForEach(hotel =>
+                if (roomTypes.Any())
                 {
-                    var rts = roomTypes.Where(rt => hotel.Id == rt.HotelId);
-                    if (rts.Any())
-                    {
-                        hotel.MinRoomPrice = rts.First()?.Price;
-                        hotel.MaxRoomPrice = rts.Last()?.Price;
-                    }
-                    else
-                    {
-                        hotel.MinRoomPrice = 0;
-                        hotel.MaxRoomPrice = 0;
-                    }
-                });
+                    hotel.MinRoomPrice = roomTypes.First().Price;
+                    hotel.MaxRoomPrice = roomTypes.Last().Price;
+                }
+                else
+                {
+                    hotel.MinRoomPrice = 0; // Hoặc giá trị mặc định khác nếu không có phòng
+                    hotel.MaxRoomPrice = 0;
+                }
             }
-
 
             return View(hotels);
         }
 
-        // Các action khác trong controller
+        public IActionResult Rooms(int hotelId, decimal? minPrice, decimal? maxPrice, int? numberOfBeds)
+        {
+            var roomsQuery = _context.Rooms
+                .Where(r => r.HotelId == hotelId)
+                .Include(r => r.RoomType)
+                .Include(r => r.Hotel)
+                .AsQueryable();
+
+            if (minPrice.HasValue)
+            {
+                roomsQuery = roomsQuery.Where(r => r.RoomType.Price >= minPrice.Value);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                roomsQuery = roomsQuery.Where(r => r.RoomType.Price <= maxPrice.Value);
+            }
+
+            if (numberOfBeds.HasValue)
+            {
+                roomsQuery = roomsQuery.Where(r => r.RoomType.NumberOfBeds == numberOfBeds.Value);
+            }
+
+            var rooms = roomsQuery.AsNoTracking().ToList();
+            ViewBag.HotelId = hotelId;
+            return View(rooms);
+        }
     }
 }
