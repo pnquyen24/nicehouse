@@ -5,31 +5,31 @@
     var hotelId = ViewBag.HotelId;
 }
 
-<h2 class="text-center my-4 text-primary fw-bold">Search Rooms</h2>
+<h2 class="text-center my-4 text-primary fw-bold">ROOMS</h2>
 <hr />
 
-@using (Html.BeginForm("Rooms", "Search", FormMethod.Get, new { hotelId }))
+@* @using (Html.BeginForm("Rooms", "Search", FormMethod.Get, new { hotelId = ViewBag.HotelId }))
 {
     <div class="form-row mb-4 align-items-center mt-3 d-flex justify-content-between">
         <div class="form-group col-md-3">
             <label for="minPrice" class="fw-bold text-primary mb-2" style="margin-left:4px;">Min Price:</label>
-            @Html.TextBox("minPrice", null, new { @class = "form-control", @placeholder = "Min price" })
+            @Html.TextBox("minPrice", null, new { @class = "form-control", @placeholder = "Min price", type = "number", step = "0.01" })
         </div>
         <div class="form-group col-md-3">
             <label for="maxPrice" class="fw-bold text-primary mb-2" style="margin-left:3px;">Max Price:</label>
-            @Html.TextBox("maxPrice", null, new { @class = "form-control", @placeholder = "Max price" })
+            @Html.TextBox("maxPrice", null, new { @class = "form-control", @placeholder = "Max price", type = "number", step = "0.01" })
         </div>
         <div class="form-group col-md-3">
             <label for="numberOfBeds" class="fw-bold text-primary mb-2" style="margin-left:2px;">Number of Beds:</label>
-            @Html.TextBox("numberOfBeds", null, new { @class = "form-control", @placeholder = "Number of beds" })
+            @Html.TextBox("numberOfBeds", null, new { @class = "form-control", @placeholder = "Number of beds", type = "number" })
         </div>
         <div class="form-group col-md-2 d-flex align-items-end">
             <input type="submit" value="Search" class="btn btn-primary btn-block" style="margin-top: 15px" />
         </div>
     </div>
-
-
 }
+ *@
+
 
 <div class="row mt-4">
     @foreach (var room in Model)
@@ -38,13 +38,20 @@
             <div class="card shadow-sm h-100 border-0">
                 @if (room.RoomType.Images != null && room.RoomType.Images.Any())
                 {
-                    <img src="@room.RoomType.Images.First().ImageUrl" class="card-img-top rounded-top" alt="Room Image" />
+                    <img src="@room.RoomType.Images.First().ImageUrl" class="card-img-top rounded-top img-fluid fixed-img-size" alt="Room Image" />
                 }
                 <div class="card-body">
                     <h5 class="card-title text-primary fw-bold">@room.RoomType.Name</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@room.Hotel.Name</h6>
-                    <p class="fw-bold text-success">Price: $@room.RoomType.Price</p>
-                    <p class="fw-bold text-secondary">Number of Beds: @room.RoomType.NumberOfBeds</p>
+
+                    <p class="fw-bold text-secondary">
+                        Price:
+                        <span class="text-success">
+                            @String.Format("{0:N0} VNĐ", room.RoomType.Price)
+                        </span>
+                    </p>
+
+                    <p class="fw-bold text-secondary">Number of Beds: <span class="fw-bold text-success">@room.RoomType.NumberOfBeds</span></p>
                     <button class="btn btn-outline-primary btn-block mt-2" onclick="showBookingForm('@room.Id')">Book Now</button>
                 </div>
             </div>
@@ -72,7 +79,7 @@
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber" class="fw-bold text-primary mb-3">Phone Number:</label>
-                        <input type="text" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
+                        <input type="number" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
                     </div>
                 </form>
             </div>
@@ -215,6 +222,7 @@
         display: flex;
         flex-wrap: wrap;
         margin: -0.5rem;
+        margin-left: 45px;
     }
 
     .form-group {
@@ -232,4 +240,10 @@
     .modal-dialog {
         border-radius: 10px;
     }
+
+    .fixed-img-size {
+        height: 200px;
+        object-fit: cover;
+    }
+
 </style>
