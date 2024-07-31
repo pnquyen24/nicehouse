@@ -9,7 +9,7 @@
         public decimal? MinRoomPrice { get; set; }
         public decimal? MaxRoomPrice { get; set; }
         public ICollection<HotelImage> Images { get; set; }
-        public ICollection<RoomType> RoomTypes { get; set; } // Thêm navigation property cho RoomTypes
+        public ICollection<RoomType> RoomTypes { get; set; }
         public ICollection<Room> Rooms { get; set; }
     }
 }

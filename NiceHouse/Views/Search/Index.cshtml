@@ -12,19 +12,19 @@
     <div class="form-row mb-4 align-items-center mt-3">
         <div class="form-group col-md-3">
             <label for="location" class="fw-bold text-primary mb-2" style="margin-left:3px;">Location:</label>
-            @Html.TextBox("location", null, new { @class = "form-control", @placeholder = "Enter location" })
+            @Html.TextBox("location", null, new { @class = "form-control", @placeholder = "Location" })
         </div>
         <div class="form-group col-md-2">
             <label for="minPrice" class="fw-bold text-primary mb-2" style="margin-left:4px;">Min Price:</label>
-            @Html.TextBox("minPrice", null, new { @class = "form-control", @placeholder = "Min price" })
+            @Html.TextBox("minPrice", null, new { @class = "form-control", @placeholder = "Min Price", type = "number", step = "0.01" })
         </div>
         <div class="form-group col-md-2">
             <label for="maxPrice" class="fw-bold text-primary mb-2" style="margin-left:4px;">Max Price:</label>
-            @Html.TextBox("maxPrice", null, new { @class = "form-control", @placeholder = "Max price" })
+            @Html.TextBox("maxPrice", null, new { @class = "form-control", @placeholder = "Max Price", type = "number", step = "0.01" })
         </div>
         <div class="form-group col-md-3">
             <label for="hotelName" class="fw-bold text-primary mb-2" style="margin-left:3px;">Hotel Name:</label>
-            @Html.TextBox("hotelName", null, new { @class = "form-control", @placeholder = "Hotel name" })
+            @Html.TextBox("hotelName", null, new { @class = "form-control", @placeholder = "Hotel Name" })
         </div>
         <div class="form-group col-md-2 d-flex align-items-end">
             <input type="submit" value="Search" class="btn btn-primary btn-block mt-3" />
@@ -45,7 +45,17 @@
                     <h5 class="card-title text-primary fw-bold">@hotel.Name</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@hotel.Location</h6>
                     <p class="card-text text-secondary">@hotel.Address</p>
-                    <p class="card-text">Price Range: <span class="fw-bold text-success">$@hotel.MinRoomPrice - $@hotel.MaxRoomPrice</span></p>
+
+
+                    <p class="card-text">
+                        <span class="fw-bold text-secondary">
+                            Price:</span>
+                        <span class="fw-bold text-success">
+                            @String.Format("{0:N0} VNĐ", hotel.MinRoomPrice) - @String.Format("{0:N0} VNĐ", hotel.MaxRoomPrice)
+                        </span>
+                    </p>
+
+
                     <a href="@Url.Action("Rooms", "Search", new { hotelId = hotel.Id })" class="btn btn-outline-primary btn-block mt-3">View Rooms</a>
                 </div>
             </div>
@@ -144,6 +154,7 @@
         display: flex;
         flex-wrap: wrap;
         margin: -0.5rem;
+        margin-left: 45px;
     }
 
     .form-group {
