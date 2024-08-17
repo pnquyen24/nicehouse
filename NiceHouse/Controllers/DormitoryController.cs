@@ -20,44 +20,44 @@ namespace NiceHouse.Controllers
         // GET: Dormitory
         public async Task<IActionResult> Index(string address, string name, decimal? minPrice, decimal? maxPrice, string type)
         {
-            var dormitories = _context.Dormitories
-                .Include(d => d.Images)
-                .AsQueryable();
+            //var dormitories = _context.Dormitories
+            //    .Include(d => d.Images)
+            //    .AsQueryable();
 
-            if (!string.IsNullOrEmpty(address))
-            {
-                dormitories = dormitories.Where(d => d.Address.Contains(address));
-            }
+            //if (!string.IsNullOrEmpty(address))
+            //{
+            //    dormitories = dormitories.Where(d => d.Address.Contains(address));
+            //}
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                dormitories = dormitories.Where(d => d.Name.Contains(name));
-            }
+            //if (!string.IsNullOrEmpty(name))
+            //{
+            //    dormitories = dormitories.Where(d => d.Name.Contains(name));
+            //}
 
-            if (minPrice.HasValue)
-            {
-                dormitories = dormitories.Where(d => d.MinRoomPrice >= minPrice.Value);
-            }
+            //if (minPrice.HasValue)
+            //{
+            //    dormitories = dormitories.Where(d => d.MinRoomPrice >= minPrice.Value);
+            //}
 
-            if (maxPrice.HasValue)
-            {
-                dormitories = dormitories.Where(d => d.MaxRoomPrice <= maxPrice.Value);
-            }
+            //if (maxPrice.HasValue)
+            //{
+            //    dormitories = dormitories.Where(d => d.MaxRoomPrice <= maxPrice.Value);
+            //}
 
-            if (!string.IsNullOrEmpty(type))
-            {
-                if (Enum.TryParse<DormitoryType>(type, out var dormitoryType))
-                {
-                    dormitories = dormitories.Where(d => d.Type == dormitoryType);
-                }
-                else
-                {
-                    // Handle invalid type if necessary
-                    ModelState.AddModelError("", "Invalid dormitory type.");
-                }
-            }
+            //if (!string.IsNullOrEmpty(type))
+            //{
+            //    if (Enum.TryParse<DormitoryType>(type, out var dormitoryType))
+            //    {
+            //        dormitories = dormitories.Where(d => d.Type == dormitoryType);
+            //    }
+            //    else
+            //    {
+            //        // Handle invalid type if necessary
+            //        ModelState.AddModelError("", "Invalid dormitory type.");
+            //    }
+            //}
 
-            return View(await dormitories.ToListAsync());
+            //return View(await dormitories.ToListAsync());
         }
 
         // GET: Dormitory/Details/5
