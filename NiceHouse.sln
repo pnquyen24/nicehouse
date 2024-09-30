@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.10.35013.160
+VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHouse", "WebApplication6\NiceHouse.csproj", "{FE47A905-6B22-43B0-A83F-E0AA1F7BFA3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceHouse", "NiceHouse.csproj", "{CD360109-6C52-4604-8810-3C2D8CE9AFDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FE47A905-6B22-43B0-A83F-E0AA1F7BFA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE47A905-6B22-43B0-A83F-E0AA1F7BFA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE47A905-6B22-43B0-A83F-E0AA1F7BFA3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE47A905-6B22-43B0-A83F-E0AA1F7BFA3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD360109-6C52-4604-8810-3C2D8CE9AFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD360109-6C52-4604-8810-3C2D8CE9AFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD360109-6C52-4604-8810-3C2D8CE9AFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD360109-6C52-4604-8810-3C2D8CE9AFDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C01A7F26-2194-4A42-92C7-F1E087113B5B}
+		SolutionGuid = {18C4EA92-35F1-4C10-B929-D8616609037A}
 	EndGlobalSection
 EndGlobal
